@@ -30,7 +30,7 @@ console.log(cVowels(str)); //this outputs a message for us
 let userInput = prompt("I need some words:");
 
 console.log("You put:", userInput);
-const cVowels = (str) => {
+const cVowels2 = (str) => {
     const vowels = "aeiouAEIOU";
     let count = 0;
 
@@ -43,8 +43,8 @@ const cVowels = (str) => {
     return count;
 };
 
-const str = userInput;
-console.log(cVowels(str));
+const string1 = userInput;
+console.log(cVowels2(string1));
 //////////////////////////////////////////////////////////////////////////////
 //some code help from geeks for geeks
 //////////////////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ console.log(car.model) // test to see if the call for these works! (it did)
 //then we will do some counting
 function jsAjax() {
     // Step 1: Create/define the data request
-    var request = new Request('/data/airports.geojson'); // created a geojason file of the airports, created a git repository called lab 2 and uploaded it, calling the file here
+    var request = new Request('data/airports.geojson'); // created a geojason file of the airports, created a git repository called lab 2 and uploaded it, calling the file here
     // Step 2: Define Fetch parameters
     var init = {
         method: 'GET'
@@ -194,6 +194,7 @@ function jsAjax() {
     .catch(error => {
         console.error('There was an error with the fetch operation:', error); //this step is to catch any other errors
     });
+    
 }
 // Step 4: Define your callback function to process the data
 function callback(data) {
@@ -207,9 +208,16 @@ function callback(data) {
     data.features.forEach(airport => {
         totalAirports++; // For each airport, increment the `totalAirports` by 1. This keeps track of how many airports in file
         // Check if the airport is not military (adjust 'type' if necessary)
-        if (airport.properties.type && airport.properties.type.toLowerCase() !== 'military') { //accessing the type of airpot listed after properties
+        if (airport.properties.type && 
+            airport.properties.type.toLowerCase() !== 'military' && 
+            airport.properties.type.toLowerCase() !== 'major and military' &&
+            airport.properties.type.toLowerCase() !== 'mid and military' &&
+            airport.properties.type.toLowerCase() !== 'military mid' && 
+            airport.properties.type.toLowerCase() !== 'military major' && 
+            airport.properties.type.toLowerCase() !== 'spaceport')  { //accessing the type of airpot listed after properties
             nonMilitaryAirports++; // Count if its not military, doing it this way as civilian is not listed in nameing
         }
+       
     });
 
     // Step 5: Send the final answer to the console
@@ -217,6 +225,8 @@ function callback(data) {
     console.log("Non-Military Airports: " + nonMilitaryAirports); //should return the civilian airports! 
 }
 
+airport_json  = jsAjax();
+callback(airport_json);
 
 // //class example
 // fetch('/data/airports.geojson')

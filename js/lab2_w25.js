@@ -270,12 +270,11 @@ function create_table(array1, array2){
   create_table(cities, pops) //i summon the table into existance! It is now in an HTML formateed table...hooray sometime worked!
 
    //now I need to add the table to an imaginary div that shall hence forth be knwon as "mydiv"
-    
-var whatevs = document.getElementById("mydiv")
-whatevs.appendChild(table)
+   //used index.html file to check that this worked and it did... yeah
 
-// Citing sources: referenced Roth soltutions and worked with classmatesto accomplish the question, also used chatgpt
-//used html file to check that this worked and it did... yeah
+// Citing sources: referenced Roth soltutions and worked with classmatesto accomplish the question, also used chatgpt to help escpecially with errors and 
+// it was used to do the if statement 
+
 
 
 

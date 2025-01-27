@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Guess Game</title>
+
+    <style>
+        /* Style the hover text */
+        .hover-text {
+            color: blue;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Style the input box */
+        .input-box {
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Style the result messages */
+        .result-message {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>This is my city!</h1>
+    
+    <!-- Add your image here -->
+    <img src="data/download.png" alt="City Image" id="cityImage" width="400" /> <!-- Example with a local image -->
+    
+    <p class="hover-text" id="guessText">Can you guess what it is?</p>
+    
+    <!-- Hidden input box and submit button -->
+    <input type="text" id="guessInput" class="input-box" placeholder="Type your guess here...">
+    <button id="submitGuess" class="input-box">Submit Guess</button>
+
+    <!-- Display result or guesses remaining -->
+    <p class="result-message" id="resultMessage"></p>
+    <p class="result-message" id="guessesRemaining"></p>
+
+    <script>
+        // Get the elements
+        const guessText = document.getElementById("guessText");
+        const guessInput = document.getElementById("guessInput");
+        const submitGuess = document.getElementById("submitGuess");
+        const resultMessage = document.getElementById("resultMessage");
+        const guessesRemaining = document.getElementById("guessesRemaining");
+
+        // Set the correct answer
+        const correctAnswer = "San Diego";
+        let attempts = 0;
+        const maxAttempts = 3;
+
+        // Add hover effect: change text style
+        guessText.addEventListener('mouseover', () => {
+            guessText.style.textDecoration = 'underline'; // Underline on hover
+        });
+
+        guessText.addEventListener('mouseout', () => {
+            guessText.style.textDecoration = 'none'; // Remove underline when hover ends
+        });
+
+        // Make the text clickable to show the input box
+        guessText.addEventListener('click', () => {
+            // Hide the clickable text and show the input box
+            guessText.style.display = 'none';
+            guessInput.style.display = 'inline-block'; // Show the input box
+            submitGuess.style.display = 'inline-block'; // Show the submit button
+            guessInput.focus(); // Focus on the input field
+            resultMessage.textContent = ''; // Clear any previous result message
+            guessesRemaining.textContent = `You have ${maxAttempts} attempts remaining.`; // Show remaining attempts
+        });
+
+        // Handle submit button click
+        submitGuess.addEventListener('click', () => {
+            const userGuess = guessInput.value.trim();
+
+            if (userGuess === "") {
+                alert("Please enter a guess!");
+                return;
+            }
+
+            attempts++; // Increment the attempt count
+
+            if (userGuess.toLowerCase() === correctAnswer.toLowerCase()) {
+                resultMessage.textContent = `Congratulations! Your guess is correct: ${correctAnswer}!`;
+                resultMessage.style.color = 'green';
+                guessesRemaining.textContent = ''; // Hide remaining attempts
+                resetGame();
+            } else {
+                if (attempts >= maxAttempts) {
+                    resultMessage.textContent = `Sorry! You've used all ${maxAttempts} attempts. The correct answer was: ${correctAnswer}.`;
+                    resultMessage.style.color = 'red';
+                    guessesRemaining.textContent = ''; // Hide remaining attempts
+                    resetGame();
+                } else {
+                    resultMessage.textContent = `Incorrect guess. Try again!`;
+                    resultMessage.style.color = 'red';
+                    guessesRemaining.textContent = `You have ${maxAttempts - attempts} attempts remaining.`;
+                }
+            }
+
+            guessInput.value = ''; // Clear input field
+            guessInput.focus(); // Focus back on input field
+        });
+
+        // Reset the game after a win or after max attempts
+        function resetGame() {
+            setTimeout(() => {
+                guessText.style.display = 'block'; // Show the clickable text again
+                guessInput.style.display = 'none'; // Hide the input box
+                submitGuess.style.display = 'none'; // Hide the submit button
+                attempts = 0; // Reset the attempt counter
+                resultMessage.textContent = ''; // Clear the result message
+                guessesRemaining.textContent = ''; // Clear remaining attempts
+            }, 3000); // Wait for 3 seconds before resetting
+        }
+    </script>
+
+<script src="lab2_w25.js" defer> </script>
+
+<div id= "mydiv"></div> 
+
+<script>
+var cities = ['Corvallis', 'Portland', 'Eugene', 'Albany']
+var pops = ['59920', '652500', '176650', '56470']
+
+
+//Create your function
+function create_table(array1, array2){
+    //create the table element
+    var table = document.createElement("table");
+    //create a header row
+    var headerRow = document.createElement("tr");
+    //add the row to the table
+    table.appendChild(headerRow);
+    //create the "City" and "Population" column headers
+	headerRow.insertAdjacentHTML("beforeend","<th>City</th><th>Population</th>")
+	
+    //loop to add a new row for each city
+    for (var i = 0; i < array1.length; i++){
+        var add_row_html = "<tr><td>" + array1[i] + "</td><td>" + array2[i] + "</td></tr>"; // adding open table, open entry stick in array 1, close andd open next to put in array 2, and array, 
+        //closes box and opens next row to repeat process
+        table.insertAdjacentHTML('beforeend', add_row_html); //inserts HTML code into table before the end of the element 
+    }
+    var div = document.getElementById("mydiv")
+    div.appendChild(table)
+  }
+  create_table(cities, pops) //i summon the table into existance! It is now in an HTML formateed table...hooray sometime worked!
+
+    </script>
+
+
+
+</body>
+</html>
